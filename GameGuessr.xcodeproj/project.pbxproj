@@ -11,6 +11,7 @@
 		6BD3D6FD2C0CC60800E33B03 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD3D6FC2C0CC60800E33B03 /* ContentView.swift */; };
 		6BD3D7012C0CC60A00E33B03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BD3D7002C0CC60A00E33B03 /* Assets.xcassets */; };
 		6BD3D7042C0CC60A00E33B03 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BD3D7032C0CC60A00E33B03 /* Preview Assets.xcassets */; };
+		6BD3D70B2C0CC95600E33B03 /* DraggableRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD3D70A2C0CC95600E33B03 /* DraggableRectangleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		6BD3D6FC2C0CC60800E33B03 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6BD3D7002C0CC60A00E33B03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6BD3D7032C0CC60A00E33B03 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		6BD3D70A2C0CC95600E33B03 /* DraggableRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableRectangleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				6BD3D7002C0CC60A00E33B03 /* Assets.xcassets */,
 				6BD3D6FC2C0CC60800E33B03 /* ContentView.swift */,
+				6BD3D70A2C0CC95600E33B03 /* DraggableRectangleView.swift */,
 				6BD3D6FA2C0CC60800E33B03 /* GameGuessrApp.swift */,
 				6BD3D7022C0CC60A00E33B03 /* Preview Content */,
 			);
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BD3D6FD2C0CC60800E33B03 /* ContentView.swift in Sources */,
+				6BD3D70B2C0CC95600E33B03 /* DraggableRectangleView.swift in Sources */,
 				6BD3D6FB2C0CC60800E33B03 /* GameGuessrApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
