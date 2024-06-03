@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct DraggableRectangleView: View {
 
@@ -20,6 +19,7 @@ struct DraggableRectangleView: View {
     @State private var isDragging = false
     @State private var dragDirection: DragDirection? = nil
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    private let maxDragDistance: CGFloat = 150
 
     var body: some View {
         GeometryReader { geometry in
@@ -33,17 +33,18 @@ struct DraggableRectangleView: View {
                         DragGesture(coordinateSpace: .global)
                             .onChanged { value in
                                 isDragging = true
-                                offset = value.translation
-                                rotationAngle = Angle(degrees: Double(value.translation.width) / 50)
+                                let newOffset = value.translation
 
-                                // Yön belirleme
-                                if abs(value.translation.width) > abs(value.translation.height) {
-                                    dragDirection = value.translation.width > 0 ? .right : .left
+                                if abs(newOffset.width) > abs(newOffset.height) {
+                                    dragDirection = newOffset.width > 0 ? .right : .left
                                 } else {
-                                    dragDirection = value.translation.height > 0 ? .bottom : .top
+                                    dragDirection = newOffset.height > 0 ? .bottom : .top
                                 }
 
-                                if (abs(value.translation.width) > 50 || value.translation.height < -50) && !hasVibrated {
+                                offset = newOffset
+                                rotationAngle = Angle(degrees: Double(newOffset.width) / 50)
+
+                                if (abs(newOffset.width) > 100 || abs(newOffset.height) > 100) && !hasVibrated {
                                     feedbackGenerator.impactOccurred()
                                     hasVibrated = true
                                 }
@@ -51,104 +52,65 @@ struct DraggableRectangleView: View {
                             .onEnded { value in
                                 withAnimation(.spring) {
                                     isDragging = false
+                                    dragDirection = nil
                                     offset = .zero
                                     rotationAngle = .zero
                                     hasVibrated = false
-                                    // Sürükleme bittikten sonra yönü koruyoruz
                                 }
                             }
                     )
 
                 if dragDirection == .top || !isDragging {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(Color.blue)
-                        .frame(width: 100, height: 50)
-                        .overlay(
-                            Text("Top")
-                                .foregroundColor(.white)
-                        )
-                        .offset(x: offset.width * 0.5, y: offset.height * 0.5 - 250)
-                        .rotationEffect(rotationAngle, anchor: .bottom)
+                    ChooseView(title: "Top",
+                               color: .blue,
+                               offset: CGSize(width: offset.width * 0.5, height: offset.height * 0.5 - 250),
+                               hasVibrated: hasVibrated,
+                               rotationAngle: rotationAngle)
                 }
 
                 if dragDirection == .right || !isDragging {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(Color.green)
-                        .frame(width: 100, height: 50)
-                        .overlay(
-                            Text("Right")
-                                .foregroundColor(.white)
-                        )
-                        .offset(x: offset.width * 0.5 + 160, y: offset.height * 0.5)
-                        .rotationEffect(rotationAngle, anchor: .bottom)
+                    ChooseView(title: "Right",
+                               color: .green,
+                               offset: CGSize(width: maxDragDistance, height: 0),
+                               hasVibrated: hasVibrated,
+                               rotationAngle: rotationAngle)
                 }
 
                 if dragDirection == .left || !isDragging {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(Color.red)
-                        .frame(width: 100, height: 50)
-                        .overlay(
-                            Text("Left")
-                                .foregroundColor(.white)
-                        )
-                        .offset(x: offset.width * 0.5 - 160, y: offset.height * 0.5)
-                        .rotationEffect(rotationAngle, anchor: .bottom)
+                    ChooseView(title: "Left",
+                               color: .red,
+                               offset: CGSize(width: -maxDragDistance, height: 0),
+                               hasVibrated: hasVibrated,
+                               rotationAngle: rotationAngle)
                 }
 
                 if dragDirection == .bottom || !isDragging {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(Color.orange)
-                        .frame(width: 100, height: 50)
-                        .overlay(
-                            Text("Bottom")
-                                .foregroundColor(.white)
-                        )
-                        .offset(x: offset.width * 0.5, y: offset.height * 0.5 + 250)
-                        .rotationEffect(rotationAngle, anchor: .bottom)
+                    ChooseView(title: "Bottom",
+                               color: .orange,
+                               offset: CGSize(width: offset.width * 0.5, height: offset.height * 0.5 + 250),
+                               hasVibrated: hasVibrated,
+                               rotationAngle: rotationAngle)
                 }
             }
             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
         }
     }
+
+    private func limitDrag(offset: CGSize) -> CGSize {
+        var limitedOffset = offset
+
+        if dragDirection == .left || dragDirection == .right {
+            limitedOffset.height = 0
+            limitedOffset.width = min(max(limitedOffset.width, -maxDragDistance), maxDragDistance)
+        } else {
+            limitedOffset.width = 0
+            limitedOffset.height = min(max(limitedOffset.height, -maxDragDistance), maxDragDistance)
+        }
+
+        return limitedOffset
+    }
 }
 
 #Preview {
     DraggableRectangleView()
-}
-
-class ImageLoader: ObservableObject {
-    @Published var image: UIImage?
-    private var cancellable: AnyCancellable?
-
-    func load(from url: URL) {
-        cancellable = URLSession.shared.dataTaskPublisher(for: url)
-            .map { UIImage(data: $0.data) }
-            .replaceError(with: nil)
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.image, on: self)
-    }
-
-    deinit {
-        cancellable?.cancel()
-    }
-}
-
-struct AsyncImage: View {
-    @StateObject private var loader = ImageLoader()
-    let url: URL
-
-    var body: some View {
-        Group {
-            if let image = loader.image {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } else {
-                ProgressView()
-            }
-        }
-        .onAppear {
-            loader.load(from: url)
-        }
-    }
 }
