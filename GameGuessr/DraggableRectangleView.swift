@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-struct DraggableRectangleView: View {
+enum DragDirection {
+    case top, bottom, left, right
+}
 
-    enum DragDirection {
-        case top, bottom, left, right
-    }
+struct DraggableRectangleView: View {
 
     @State private var offset = CGSize.zero
     @State private var rotationAngle: Angle = .zero
@@ -61,7 +61,8 @@ struct DraggableRectangleView: View {
                     )
 
                 if dragDirection == .top || !isDragging {
-                    ChooseView(title: "Top",
+                    ChooseView(direction: .top,
+                               title: "Top",
                                color: .blue,
                                offset: CGSize(width: offset.width * 0.5, height: offset.height * 0.5 - 250),
                                hasVibrated: hasVibrated,
@@ -69,7 +70,8 @@ struct DraggableRectangleView: View {
                 }
 
                 if dragDirection == .right || !isDragging {
-                    ChooseView(title: "Right",
+                    ChooseView(direction: .right,
+                               title: "Right",
                                color: .green,
                                offset: CGSize(width: maxDragDistance, height: 0),
                                hasVibrated: hasVibrated,
@@ -77,7 +79,8 @@ struct DraggableRectangleView: View {
                 }
 
                 if dragDirection == .left || !isDragging {
-                    ChooseView(title: "Left",
+                    ChooseView(direction: .left,
+                               title: "Left",
                                color: .red,
                                offset: CGSize(width: -maxDragDistance, height: 0),
                                hasVibrated: hasVibrated,
@@ -85,7 +88,8 @@ struct DraggableRectangleView: View {
                 }
 
                 if dragDirection == .bottom || !isDragging {
-                    ChooseView(title: "Bottom",
+                    ChooseView(direction: .bottom,
+                               title: "Bottom",
                                color: .orange,
                                offset: CGSize(width: offset.width * 0.5, height: offset.height * 0.5 + 250),
                                hasVibrated: hasVibrated,

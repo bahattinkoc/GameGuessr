@@ -10,6 +10,8 @@ import Combine
 
 struct ChooseView: View {
     @State private var textHeight: CGFloat = 0
+    @State private var showChooseView: Bool = false
+    var direction: DragDirection = .top
     var title: String
     var color: Color
     var offset = CGSize.zero
@@ -35,9 +37,19 @@ struct ChooseView: View {
         .scaleEffect(hasVibrated ? 1.2 : 1.0)
         .offset(offset)
         .rotationEffect(rotationAngle, anchor: .bottom)
+        .opacity(showChooseView ? 1 : 0)
+        .animation(.easeInOut(duration: 0.6), value: showChooseView)
         .onAppear {
             if hasVibrated {
                 feedbackGenerator.impactOccurred()
+            }
+            withAnimation {
+                showChooseView = true
+            }
+        }
+        .onDisappear {
+            withAnimation {
+                showChooseView = false
             }
         }
     }
