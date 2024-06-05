@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B72CA2C2C10953F00F1C0A9 /* gameList.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B72CA2B2C10953F00F1C0A9 /* gameList.json */; };
+		6B72CA2F2C10966000F1C0A9 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B72CA2E2C10966000F1C0A9 /* Game.swift */; };
 		6BD3D6FB2C0CC60800E33B03 /* GameGuessrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD3D6FA2C0CC60800E33B03 /* GameGuessrApp.swift */; };
 		6BD3D7012C0CC60A00E33B03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BD3D7002C0CC60A00E33B03 /* Assets.xcassets */; };
 		6BD3D7042C0CC60A00E33B03 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BD3D7032C0CC60A00E33B03 /* Preview Assets.xcassets */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B72CA2B2C10953F00F1C0A9 /* gameList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gameList.json; sourceTree = "<group>"; };
+		6B72CA2E2C10966000F1C0A9 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		6BD3D6F72C0CC60800E33B03 /* GameGuessr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameGuessr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BD3D6FA2C0CC60800E33B03 /* GameGuessrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameGuessrApp.swift; sourceTree = "<group>"; };
 		6BD3D7002C0CC60A00E33B03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -36,6 +40,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6B72CA0B2C10265400F1C0A9 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				6BD3D7002C0CC60A00E33B03 /* Assets.xcassets */,
+				6B72CA0C2C10265C00F1C0A9 /* Mock */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		6B72CA0C2C10265C00F1C0A9 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				6B72CA2B2C10953F00F1C0A9 /* gameList.json */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		6B72CA2D2C10965300F1C0A9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6B72CA2E2C10966000F1C0A9 /* Game.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		6BD3D6EE2C0CC60800E33B03 = {
 			isa = PBXGroup;
 			children = (
@@ -55,7 +84,8 @@
 		6BD3D6F92C0CC60800E33B03 /* GameGuessr */ = {
 			isa = PBXGroup;
 			children = (
-				6BD3D7002C0CC60A00E33B03 /* Assets.xcassets */,
+				6B72CA2D2C10965300F1C0A9 /* Model */,
+				6B72CA0B2C10265400F1C0A9 /* Resource */,
 				6BD3D70E2C0E2A6E00E33B03 /* AsyncImage.swift */,
 				6BD3D70C2C0E18AB00E33B03 /* ChooseView.swift */,
 				6BD3D70A2C0CC95600E33B03 /* DraggableRectangleView.swift */,
@@ -131,6 +161,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B72CA2C2C10953F00F1C0A9 /* gameList.json in Resources */,
 				6BD3D7042C0CC60A00E33B03 /* Preview Assets.xcassets in Resources */,
 				6BD3D7012C0CC60A00E33B03 /* Assets.xcassets in Resources */,
 			);
@@ -144,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6BD3D70F2C0E2A6E00E33B03 /* AsyncImage.swift in Sources */,
+				6B72CA2F2C10966000F1C0A9 /* Game.swift in Sources */,
 				6BD3D70B2C0CC95600E33B03 /* DraggableRectangleView.swift in Sources */,
 				6BD3D6FB2C0CC60800E33B03 /* GameGuessrApp.swift in Sources */,
 				6BD3D70D2C0E18AB00E33B03 /* ChooseView.swift in Sources */,

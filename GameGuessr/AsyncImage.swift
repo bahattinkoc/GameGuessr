@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AsyncImage: View {
     @StateObject private var loader = ImageLoader()
@@ -24,9 +25,30 @@ struct AsyncImage: View {
         .onAppear {
             loader.load(from: url)
         }
+        .onChange(of: url) { _, newValue in
+            loader.image = nil
+            loader.load(from: newValue)
+        }
     }
 }
 
 #Preview {
     AsyncImage(url: URL(string: "")!)
+}
+
+final class ImageLoader: ObservableObject {
+    @Published var image: UIImage?
+    private var cancellable: AnyCancellable?
+
+    func load(from url: URL) {
+        cancellable = URLSession.shared.dataTaskPublisher(for: url)
+            .map { UIImage(data: $0.data) }
+            .replaceError(with: nil)
+            .receive(on: DispatchQueue.main)
+            .assign(to: \.image, on: self)
+    }
+
+    deinit {
+        cancellable?.cancel()
+    }
 }

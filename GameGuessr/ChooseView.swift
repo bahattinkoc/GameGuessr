@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 struct ChooseView: View {
     @State private var textHeight: CGFloat = 0
@@ -52,23 +51,6 @@ struct ChooseView: View {
                 showChooseView = false
             }
         }
-    }
-}
-
-final class ImageLoader: ObservableObject {
-    @Published var image: UIImage?
-    private var cancellable: AnyCancellable?
-
-    func load(from url: URL) {
-        cancellable = URLSession.shared.dataTaskPublisher(for: url)
-            .map { UIImage(data: $0.data) }
-            .replaceError(with: nil)
-            .receive(on: DispatchQueue.main)
-            .assign(to: \.image, on: self)
-    }
-
-    deinit {
-        cancellable?.cancel()
     }
 }
 

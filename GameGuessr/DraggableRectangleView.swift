@@ -13,6 +13,9 @@ enum DragDirection {
 
 struct DraggableRectangleView: View {
 
+    @State private var games: [Game] = []
+    @State private var game: Game = Game()
+    @State private var imageUrl: URL = URL(string: "https://media.rawg.io/media/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")!
     @State private var offset = CGSize.zero
     @State private var rotationAngle: Angle = .zero
     @State private var hasVibrated = false
@@ -24,7 +27,7 @@ struct DraggableRectangleView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                AsyncImage(url: URL(string: "https://media.rawg.io/media/games/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")!)
+                AsyncImage(url: imageUrl)
                     .frame(width: geometry.size.width - 60, height: geometry.size.height / 1.5)
                     .cornerRadius(24.0)
                     .offset(x: offset.width, y: offset.height)
@@ -51,11 +54,14 @@ struct DraggableRectangleView: View {
                             }
                             .onEnded { value in
                                 withAnimation(.spring) {
-                                    isDragging = false
-                                    dragDirection = nil
-                                    offset = .zero
-                                    rotationAngle = .zero
-                                    hasVibrated = false
+                                    DispatchQueue.main.async {
+                                        changeGame()
+                                        isDragging = false
+                                        dragDirection = nil
+                                        offset = .zero
+                                        rotationAngle = .zero
+                                        hasVibrated = false
+                                    }
                                 }
                             }
                     )
@@ -97,12 +103,14 @@ struct DraggableRectangleView: View {
                 }
             }
             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+            .onAppear {
+                loadGames()
+            }
         }
     }
 
     private func limitDrag(offset: CGSize) -> CGSize {
         var limitedOffset = offset
-
         if dragDirection == .left || dragDirection == .right {
             limitedOffset.height = 0
             limitedOffset.width = min(max(limitedOffset.width, -maxDragDistance), maxDragDistance)
@@ -110,8 +118,26 @@ struct DraggableRectangleView: View {
             limitedOffset.width = 0
             limitedOffset.height = min(max(limitedOffset.height, -maxDragDistance), maxDragDistance)
         }
-
         return limitedOffset
+    }
+
+    func changeGame() {
+        game = games.randomElement()!
+        imageUrl = URL(string: "https://images.igdb.com/igdb/image/upload/t_1080p_2x/\(game.url ?? "co290t.jpg")")!
+        print(imageUrl.absoluteURL)
+    }
+
+    func loadGames() {
+        if let url = Bundle.main.url(forResource: "gameList", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                games = try decoder.decode([Game].self, from: data)
+                changeGame()
+            } catch {
+                print("Error decoding JSON: \(error)")
+            }
+        }
     }
 }
 
