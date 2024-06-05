@@ -15,7 +15,7 @@ struct DraggableRectangleView: View {
 
     @State private var games: [Game] = []
     @State private var game: Game = Game()
-    @State private var imageUrl: URL = URL(string: "https://media.rawg.io/media/20a/20aa03a10cda45239fe22d035c0ebe64.jpg")!
+    @State private var imageUrl: URL = URL(string: "https://images.igdb.com/igdb/image/upload/t_1080p_2x/co290t.jpg")!
     @State private var offset = CGSize.zero
     @State private var rotationAngle: Angle = .zero
     @State private var hasVibrated = false
