@@ -22,6 +22,7 @@ struct ChooseView: View {
             Text(title)
                 .bold()
                 .padding(8)
+                .frame(minWidth: 30, maxWidth: [.top, .bottom].contains(direction) ? 140 : 100)
                 .background(
                     GeometryReader { geometry in
                         RoundedRectangle(cornerRadius: textHeight / 2)

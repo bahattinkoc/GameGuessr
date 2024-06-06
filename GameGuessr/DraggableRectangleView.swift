@@ -14,15 +14,15 @@ enum DragDirection: String {
 struct DraggableRectangleView: View {
 
     @State private var games: [Game] = []
-    @State private var game: Game = Game()
+    @State private var correctGame: Game = Game()
     @State private var imageUrl: URL = URL(string: "https://images.igdb.com/igdb/image/upload/t_1080p_2x/co290t.jpg")!
     @State private var offset = CGSize.zero
     @State private var rotationAngle: Angle = .zero
     @State private var hasVibrated = false
     @State private var isDragging = false
     @State private var dragDirection: DragDirection? = nil
+    @State private var options: [Game] = Array(repeating: Game(), count: 4)
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
-    private let maxDragDistance: CGFloat = 30
 
     var body: some View {
         GeometryReader { geometry in
@@ -76,7 +76,7 @@ struct DraggableRectangleView: View {
                     )
 
                 ChooseView(direction: .top,
-                           title: "Top",
+                           title: options[0].name ?? "",
                            color: .blue,
                            offset: CGSize(width: offset.width * 0.5, height: offset.height * 0.5 - geometry.size.height / 1.5 / 2),
                            hasVibrated: hasVibrated && dragDirection != nil,
@@ -84,7 +84,7 @@ struct DraggableRectangleView: View {
                            visibility: dragDirection == .top || !isDragging || (isDragging && dragDirection == nil))
 
                 ChooseView(direction: .right,
-                           title: "Right",
+                           title: options[1].name ?? "",
                            color: .green,
                            offset: CGSize(width: min(offset.width * 0.5 + 160, geometry.size.width / 2.3), height: 0),
                            hasVibrated: hasVibrated && dragDirection != nil,
@@ -92,7 +92,7 @@ struct DraggableRectangleView: View {
                            visibility: dragDirection == .right || !isDragging || (isDragging && dragDirection == nil))
 
                 ChooseView(direction: .left,
-                           title: "Left",
+                           title: options[2].name ?? "",
                            color: .red,
                            offset: CGSize(width: max(offset.width * 0.5 - 160, -(geometry.size.width / 2.3)), height: 0),
                            hasVibrated: hasVibrated && dragDirection != nil,
@@ -100,7 +100,7 @@ struct DraggableRectangleView: View {
                            visibility: dragDirection == .left || !isDragging || (isDragging && dragDirection == nil))
 
                 ChooseView(direction: .bottom,
-                           title: "Bottom",
+                           title: options[3].name ?? "",
                            color: .orange,
                            offset: CGSize(width: offset.width * 0.5, height: offset.height * 0.5 + geometry.size.height / 1.5 / 2),
                            hasVibrated: hasVibrated && dragDirection != nil,
@@ -114,8 +114,15 @@ struct DraggableRectangleView: View {
     }
 
     func changeGame() {
-        game = games.randomElement()!
-        imageUrl = URL(string: "https://images.igdb.com/igdb/image/upload/t_1080p_2x/\(game.url ?? "co290t.jpg")")!
+        var randomIndexes = Set<Int>()
+        while randomIndexes.count < 4 {
+            let rastgeleIndeks = Int.random(in: 0..<games.count)
+            randomIndexes.insert(rastgeleIndeks)
+        }
+        options = randomIndexes.map { games[$0] }
+        options.shuffle()
+        correctGame = options.randomElement()!
+        imageUrl = URL(string: "https://images.igdb.com/igdb/image/upload/t_1080p_2x/\(correctGame.url ?? "co290t.jpg")")!
     }
 
     func loadGames() {
@@ -124,6 +131,7 @@ struct DraggableRectangleView: View {
                 let data = try Data(contentsOf: url)
                 let decoder = JSONDecoder()
                 games = try decoder.decode([Game].self, from: data)
+                games.shuffle()
                 changeGame()
             } catch {
                 print("Error decoding JSON: \(error)")
