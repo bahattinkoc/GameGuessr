@@ -9,18 +9,18 @@ import SwiftUI
 
 struct ChooseView: View {
     @State private var textHeight: CGFloat = 0
-    @State private var showChooseView: Bool = false
     var direction: DragDirection = .top
     var title: String
     var color: Color
     var offset = CGSize.zero
     var hasVibrated: Bool = false
     var rotationAngle: Angle = .zero
-    private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+    var visibility: Bool = true
 
     var body: some View {
         VStack {
             Text(title)
+                .bold()
                 .padding(8)
                 .background(
                     GeometryReader { geometry in
@@ -33,24 +33,12 @@ struct ChooseView: View {
                 )
                 .foregroundColor(.white)
         }
-        .scaleEffect(hasVibrated ? 1.2 : 1.0)
+        .scaleEffect(hasVibrated ? 1.4 : 1.0)
         .offset(offset)
         .rotationEffect(rotationAngle, anchor: .bottom)
-        .opacity(showChooseView ? 1 : 0)
-        .animation(.easeInOut(duration: 0.6), value: showChooseView)
-        .onAppear {
-            if hasVibrated {
-                feedbackGenerator.impactOccurred()
-            }
-            withAnimation {
-                showChooseView = true
-            }
-        }
-        .onDisappear {
-            withAnimation {
-                showChooseView = false
-            }
-        }
+        .opacity(visibility ? 1 : 0)
+        .animation(.linear(duration: 0.15), value: visibility)
+        .shadow(radius: textHeight / 2)
     }
 }
 
