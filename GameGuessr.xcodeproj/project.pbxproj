@@ -84,13 +84,13 @@
 		6BD3D6F92C0CC60800E33B03 /* GameGuessr */ = {
 			isa = PBXGroup;
 			children = (
-				6B72CA2D2C10965300F1C0A9 /* Model */,
-				6B72CA0B2C10265400F1C0A9 /* Resource */,
 				6BD3D70E2C0E2A6E00E33B03 /* AsyncImage.swift */,
 				6BD3D70C2C0E18AB00E33B03 /* ChooseView.swift */,
 				6BD3D70A2C0CC95600E33B03 /* DraggableRectangleView.swift */,
 				6BD3D6FA2C0CC60800E33B03 /* GameGuessrApp.swift */,
+				6B72CA2D2C10965300F1C0A9 /* Model */,
 				6BD3D7022C0CC60A00E33B03 /* Preview Content */,
+				6B72CA0B2C10265400F1C0A9 /* Resource */,
 			);
 			path = GameGuessr;
 			sourceTree = "<group>";
