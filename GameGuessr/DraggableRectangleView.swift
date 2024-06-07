@@ -28,6 +28,9 @@ struct DraggableRectangleView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
+                Color.background
+                    .edgesIgnoringSafeArea(.all)
+
                 AsyncImage(url: imageUrl, pixelSize: $pixelSize)
                     .frame(width: geometry.size.width - 60, height: geometry.size.height / 1.5)
                     .cornerRadius(24.0)
@@ -131,7 +134,7 @@ struct DraggableRectangleView: View {
         }
     }
 
-    func changeGame() {
+    private func changeGame() {
         var randomIndexes = Set<Int>()
         while randomIndexes.count < 4 {
             let rastgeleIndeks = Int.random(in: 0..<games.count)
@@ -143,7 +146,7 @@ struct DraggableRectangleView: View {
         imageUrl = URL(string: "https://images.igdb.com/igdb/image/upload/t_1080p_2x/\(correctGame.url ?? "co290t.jpg")")!
     }
 
-    func loadGames() {
+    private func loadGames() {
         if let url = Bundle.main.url(forResource: "gameList", withExtension: "json") {
             do {
                 let data = try Data(contentsOf: url)
