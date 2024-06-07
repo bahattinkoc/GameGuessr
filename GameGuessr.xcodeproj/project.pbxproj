@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6B72CA2C2C10953F00F1C0A9 /* gameList.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B72CA2B2C10953F00F1C0A9 /* gameList.json */; };
 		6B72CA2F2C10966000F1C0A9 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B72CA2E2C10966000F1C0A9 /* Game.swift */; };
+		6B72CA322C12DA4900F1C0A9 /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = 6B72CA312C12DA4900F1C0A9 /* Pow */; };
 		6BD3D6FB2C0CC60800E33B03 /* GameGuessrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD3D6FA2C0CC60800E33B03 /* GameGuessrApp.swift */; };
 		6BD3D7012C0CC60A00E33B03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BD3D7002C0CC60A00E33B03 /* Assets.xcassets */; };
 		6BD3D7042C0CC60A00E33B03 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6BD3D7032C0CC60A00E33B03 /* Preview Assets.xcassets */; };
@@ -34,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B72CA322C12DA4900F1C0A9 /* Pow in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -119,6 +121,9 @@
 			dependencies = (
 			);
 			name = GameGuessr;
+			packageProductDependencies = (
+				6B72CA312C12DA4900F1C0A9 /* Pow */,
+			);
 			productName = GameGuessr;
 			productReference = 6BD3D6F72C0CC60800E33B03 /* GameGuessr.app */;
 			productType = "com.apple.product-type.application";
@@ -147,6 +152,9 @@
 				Base,
 			);
 			mainGroup = 6BD3D6EE2C0CC60800E33B03;
+			packageReferences = (
+				6B72CA302C12DA4900F1C0A9 /* XCRemoteSwiftPackageReference "Pow" */,
+			);
 			productRefGroup = 6BD3D6F82C0CC60800E33B03 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -394,6 +402,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6B72CA302C12DA4900F1C0A9 /* XCRemoteSwiftPackageReference "Pow" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/EmergeTools/Pow.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6B72CA312C12DA4900F1C0A9 /* Pow */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6B72CA302C12DA4900F1C0A9 /* XCRemoteSwiftPackageReference "Pow" */;
+			productName = Pow;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6BD3D6EF2C0CC60800E33B03 /* Project object */;
 }

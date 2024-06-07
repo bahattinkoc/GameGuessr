@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Pow
 
 enum DragDirection: String {
     case top, bottom, left, right
@@ -23,6 +24,7 @@ struct DraggableRectangleView: View {
     @State private var dragDirection: DragDirection? = nil
     @State private var options: [Game] = Array(repeating: Game(), count: 4)
     @State private var pixelSize: CGFloat = 60.0
+    @State private var isWiggle: Bool = false
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 
     var body: some View {
@@ -67,6 +69,7 @@ struct DraggableRectangleView: View {
                                 }
                             }
                             .onEnded { value in
+                                defer { isWiggle = false }
                                 if dragDirection != nil {
                                     didChoose()
                                 }
@@ -78,6 +81,14 @@ struct DraggableRectangleView: View {
                                     rotationAngle = .zero
                                 }
                             }
+                    )
+                    .changeEffect(.shake(rate: .phaseLength(0.5)), value: isWiggle)
+                    .conditionalEffect(
+                        .repeat(
+                            .glow(color: .red, radius: 50),
+                            every: 1.5
+                        ),
+                        condition: isWiggle
                     )
 
                 ChooseView(direction: .top,
@@ -124,8 +135,11 @@ struct DraggableRectangleView: View {
             selectedIndex == 1 && dragDirection == .right ||
             selectedIndex == 2 && dragDirection == .left ||
             selectedIndex == 3 && dragDirection == .bottom {
-            changeGame()
+            DispatchQueue.main.async {
+                changeGame()
+            }
         } else {
+            isWiggle = true
             if pixelSize - 19 >= 1 {
                 pixelSize -= 19
             } else {

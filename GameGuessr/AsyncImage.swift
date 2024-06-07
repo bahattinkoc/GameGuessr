@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import Pow
 
 struct AsyncImage: View {
     @StateObject var loader = ImageLoader()
@@ -20,26 +21,36 @@ struct AsyncImage: View {
                 Image(uiImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
+                    .transition(.movingParts.blur)
             } else {
                 ProgressView()
             }
         }
         .onAppear {
-            loader.load(from: url)
+            withAnimation {
+                loader.load(from: url)
+            }
         }
         .onChange(of: url) { _, newValue in
-            loader.image = nil
-            loader.load(from: newValue)
-            pixelSize = 60.0
+            withAnimation {
+                pixelatedImage = nil
+                loader.image = nil
+                loader.load(from: newValue)
+                pixelSize = 60.0
+            }
         }
         .onChange(of: pixelSize) { _, _ in
-            if let image = loader.image {
-                pixelatedImage = pixelateImage(image, pixelSize: pixelSize)
+            withAnimation {
+                if let image = loader.image {
+                    pixelatedImage = pixelateImage(image, pixelSize: pixelSize)
+                }
             }
         }
         .onChange(of: loader.image) { _, _ in
-            if let image = loader.image {
-                pixelatedImage = pixelateImage(image, pixelSize: 60.0)
+            withAnimation {
+                if let image = loader.image {
+                    pixelatedImage = pixelateImage(image, pixelSize: 60.0)
+                }
             }
         }
     }
