@@ -15,23 +15,25 @@ struct DraggableRectangleView: View {
 
     @State private var games: [Game] = []
     @State private var correctGame: Game = Game()
-    @State private var imageUrl: URL = URL(string: "https://images.igdb.com/igdb/image/upload/t_1080p_2x/co290t.jpg")!
+    @State private var imageUrl: URL = URL(string: "https://images.igdb.com/igdb/image/upload/t_1080p_2x/co7dw9.jpg")!
     @State private var offset = CGSize.zero
     @State private var rotationAngle: Angle = .zero
     @State private var hasVibrated = false
     @State private var isDragging = false
     @State private var dragDirection: DragDirection? = nil
     @State private var options: [Game] = Array(repeating: Game(), count: 4)
+    @State private var pixelSize: CGFloat = 60.0
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                AsyncImage(url: imageUrl)
+                AsyncImage(url: imageUrl, pixelSize: $pixelSize)
                     .frame(width: geometry.size.width - 60, height: geometry.size.height / 1.5)
                     .cornerRadius(24.0)
                     .offset(x: offset.width, y: offset.height)
                     .rotationEffect(rotationAngle, anchor: .bottom)
+                    .shadow(radius: 8.0)
                     .gesture(
                         DragGesture(coordinateSpace: .global)
                             .onChanged { value in
@@ -63,7 +65,7 @@ struct DraggableRectangleView: View {
                             }
                             .onEnded { value in
                                 if dragDirection != nil {
-                                    changeGame()
+                                    didChoose()
                                 }
                                 isDragging = false
                                 dragDirection = nil
@@ -109,6 +111,22 @@ struct DraggableRectangleView: View {
             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             .onAppear {
                 loadGames()
+            }
+        }
+    }
+
+    private func didChoose() {
+        let selectedIndex = options.firstIndex { $0.name == correctGame.name }
+        if selectedIndex == 0 && dragDirection == .top ||
+            selectedIndex == 1 && dragDirection == .right ||
+            selectedIndex == 2 && dragDirection == .left ||
+            selectedIndex == 3 && dragDirection == .bottom {
+            changeGame()
+        } else {
+            if pixelSize - 19 >= 1 {
+                pixelSize -= 19
+            } else {
+                // TODO: - Kaybettin
             }
         }
     }
