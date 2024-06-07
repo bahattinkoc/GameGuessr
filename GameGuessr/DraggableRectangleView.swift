@@ -88,7 +88,7 @@ struct DraggableRectangleView: View {
                 ChooseView(direction: .right,
                            title: options[1].name ?? "",
                            color: .green,
-                           offset: CGSize(width: min(offset.width * 0.5 + 160, geometry.size.width / 2.3), height: 0),
+                           offset: CGSize(width: min(offset.width * 0.5 + 160, geometry.size.width / 2.3 - 30.0), height: 0),
                            hasVibrated: hasVibrated && dragDirection != nil,
                            rotationAngle: rotationAngle,
                            visibility: dragDirection == .right || !isDragging || (isDragging && dragDirection == nil))
@@ -96,7 +96,7 @@ struct DraggableRectangleView: View {
                 ChooseView(direction: .left,
                            title: options[2].name ?? "",
                            color: .red,
-                           offset: CGSize(width: max(offset.width * 0.5 - 160, -(geometry.size.width / 2.3)), height: 0),
+                           offset: CGSize(width: max(offset.width * 0.5 - 160, -(geometry.size.width / 2.3) + 30.0), height: 0),
                            hasVibrated: hasVibrated && dragDirection != nil,
                            rotationAngle: rotationAngle,
                            visibility: dragDirection == .left || !isDragging || (isDragging && dragDirection == nil))
