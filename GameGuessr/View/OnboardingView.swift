@@ -40,7 +40,7 @@ struct OnboardingView: View {
                         .padding([.top, .leading, .trailing])
                         .onChange(of: currentPage) { oldValue, newValue in
                             withAnimation {
-                                DispatchQueue.main.asyncAfter(deadline: .now() + (oldValue > newValue ? 0.0 : 0.75)) {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + (oldValue > newValue ? 0.0 : 1.0)) {
                                     progressBarHeight = currentPage == texts.count - 1 ? 50.0 : 8.0
                                 }
                             }

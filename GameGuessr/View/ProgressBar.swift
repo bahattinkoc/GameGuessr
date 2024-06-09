@@ -26,6 +26,7 @@ struct ProgressBar: View {
                         .foregroundColor(Color(UIColor.systemTeal))
 
                     LinearGradient(gradient: Gradient(colors: [Color.purple, Color.blue]), startPoint: .leading, endPoint: .trailing)
+                        .cornerRadius(45.0)
                         .frame(width: min(CGFloat(self.value + 1) / CGFloat(self.total) * geometry.size.width, geometry.size.width),
                                height: geometry.size.height)
                         .animation(.linear(duration: 1.0), value: value)
@@ -36,7 +37,7 @@ struct ProgressBar: View {
                         .frame(width: geometry.size.width, height: geometry.size.height)
                         .transition(.scale)
                         .onChange(of: value) { oldValue, newValue in
-                            DispatchQueue.main.asyncAfter(deadline: .now() + (oldValue > newValue ? 0.0 : 0.75)) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + (oldValue > newValue ? 0.0 : 1.0)) {
                                 buttonTitle = value == total - 1 ? "START" : ""
                             }
                         }
