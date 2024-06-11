@@ -4,3 +4,8 @@
 "onboarding1" = "Over 220,000 game data";
 "onboarding2" = "Every time you guess, you get a little closer";
 "onboarding3" = "There are 4 different ways to guess";
+
+// MARK: - DraggableRectangleView
+
+"currentScore" = "Score: ";
+"remainingScore" = "Remaining score: ";

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @ObservedObject private var gameCenterManager = GameCenterManager.shared
     private let image = Image("onboarding")
     private let texts = [LocalizationContants.OnboardingView.onboarding1,
                          LocalizationContants.OnboardingView.onboarding2,
@@ -50,7 +51,11 @@ struct OnboardingView: View {
                 }
             }
             .navigationDestination(isPresented: $isNavigationActive) {
-                DraggableRectangleView().navigationBarBackButtonHidden()
+                DraggableRectangleView()
+                    .navigationBarBackButtonHidden()
+                    .onAppear {
+                        gameCenterManager.authenticateLocalPlayer()
+                    }
             }
         }
     }

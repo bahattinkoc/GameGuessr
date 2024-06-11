@@ -4,3 +4,8 @@
 "onboarding1" = "220.000 den fazla oyun verisi";
 "onboarding2" = "Her tahminde biraz daha yaklaşırsın";
 "onboarding3" = "Tahmin etmek için 4 farklı yol var";
+
+// MARK: - DraggableRectangleView
+
+"currentScore" = "Puan: ";
+"remainingScore" = "Kalan puan: ";

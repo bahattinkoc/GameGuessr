@@ -14,6 +14,7 @@ enum DragDirection: String {
 
 struct DraggableRectangleView: View {
 
+    @ObservedObject private var gameCenterManager = GameCenterManager.shared
     @State private var games: [Game] = []
     @State private var correctGame: Game = Game()
     @State private var imageUrl: URL = URL(string: "https://images.igdb.com/igdb/image/upload/t_1080p_2x/co7dw9.jpg")!
@@ -25,6 +26,8 @@ struct DraggableRectangleView: View {
     @State private var options: [Game] = Array(repeating: Game(), count: 4)
     @State private var pixelSize: CGFloat = 60.0
     @State private var isWiggle: Bool = false
+    @State private var score: Int = 0
+    @State private var remainingScore: Int = 3
     private let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
 
     var body: some View {
@@ -32,6 +35,50 @@ struct DraggableRectangleView: View {
             ZStack {
                 Color.background
                     .edgesIgnoringSafeArea(.all)
+
+                VStack {
+                    HStack {
+                        HStack {
+                            Text("\(LocalizationContants.DraggableRectangleView.currentScore)")
+                                .fontWeight(.heavy)
+                                .font(.system(size: 20.0))
+                                .foregroundStyle(.gray)
+                            Text("\(score)")
+                                .fontWeight(.heavy)
+                                .font(.system(size: 20.0))
+                                .foregroundStyle(.yellow)
+                            Spacer()
+                        }
+                        .padding()
+                        Spacer()
+                        Button(action: {
+                            gameCenterManager.showLeaderboard()
+                        }) {
+                            Image(systemName: "trophy.fill")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .foregroundColor(.yellow)
+                                .padding()
+                        }
+                    }
+                    Spacer()
+                }
+                .padding()
+                .padding(.top, 40)
+                .edgesIgnoringSafeArea(.all)
+
+                VStack {
+                    Spacer()
+                    HStack {
+                        Text("\(LocalizationContants.DraggableRectangleView.remainingScore)\(remainingScore)")
+                            .fontWeight(.heavy)
+                            .foregroundStyle(.gray)
+                            .padding()
+                    }
+                }
+                .padding()
+                .padding(.bottom, 40)
+                .edgesIgnoringSafeArea(.all)
 
                 AsyncImage(url: imageUrl, pixelSize: $pixelSize)
                     .frame(width: geometry.size.width - 60, height: geometry.size.height / 1.5)
@@ -137,8 +184,18 @@ struct DraggableRectangleView: View {
             selectedIndex == 3 && dragDirection == .bottom {
             DispatchQueue.main.async {
                 changeGame()
+                score += remainingScore
+                remainingScore = 3
+                gameCenterManager.reportScore(score: score)
             }
         } else {
+            if remainingScore - 1 == 0 {
+                remainingScore = 3
+                score = 0
+                changeGame()
+            } else {
+                remainingScore -= 1
+            }
             isWiggle = true
             if pixelSize - 19 >= 1 {
                 pixelSize -= 19

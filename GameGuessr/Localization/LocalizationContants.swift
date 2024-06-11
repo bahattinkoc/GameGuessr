@@ -13,4 +13,9 @@ enum LocalizationContants {
         static var onboarding2: String { "onboarding2".localized }
         static var onboarding3: String { "onboarding3".localized }
     }
+
+    enum DraggableRectangleView {
+        static var currentScore: String { "currentScore".localized }
+        static var remainingScore: String { "remainingScore".localized }
+    }
 }

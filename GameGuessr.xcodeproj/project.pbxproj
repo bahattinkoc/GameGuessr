@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B4E2FE32C18C3BC006F9834 /* GameCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4E2FE22C18C3BC006F9834 /* GameCenterManager.swift */; };
 		6B72CA2C2C10953F00F1C0A9 /* gameList.json in Resources */ = {isa = PBXBuildFile; fileRef = 6B72CA2B2C10953F00F1C0A9 /* gameList.json */; };
 		6B72CA2F2C10966000F1C0A9 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B72CA2E2C10966000F1C0A9 /* Game.swift */; };
 		6B72CA322C12DA4900F1C0A9 /* Pow in Frameworks */ = {isa = PBXBuildFile; productRef = 6B72CA312C12DA4900F1C0A9 /* Pow */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B4E2FE12C18C39C006F9834 /* GameGuessr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GameGuessr.entitlements; sourceTree = "<group>"; };
+		6B4E2FE22C18C3BC006F9834 /* GameCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterManager.swift; sourceTree = "<group>"; };
 		6B72CA2B2C10953F00F1C0A9 /* gameList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gameList.json; sourceTree = "<group>"; };
 		6B72CA2E2C10966000F1C0A9 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		6B72CA372C14F6E000F1C0A9 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -98,6 +101,7 @@
 			children = (
 				6B9636562C15CB9300A918C6 /* CacheConstants.swift */,
 				6B9636542C15CB6800A918C6 /* CacheManager.swift */,
+				6B4E2FE22C18C3BC006F9834 /* GameCenterManager.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -117,8 +121,8 @@
 				6BD3D70C2C0E18AB00E33B03 /* ChooseView.swift */,
 				6BD3D70A2C0CC95600E33B03 /* DraggableRectangleView.swift */,
 				6BD3D6FA2C0CC60800E33B03 /* GameGuessrApp.swift */,
-				6B72CA372C14F6E000F1C0A9 /* OnboardingView.swift */,
 				6B9636642C15D36B00A918C6 /* OnboardingPage.swift */,
+				6B72CA372C14F6E000F1C0A9 /* OnboardingView.swift */,
 				6B9636662C15D48000A918C6 /* ProgressBar.swift */,
 			);
 			path = View;
@@ -143,6 +147,7 @@
 		6BD3D6F92C0CC60800E33B03 /* GameGuessr */ = {
 			isa = PBXGroup;
 			children = (
+				6B4E2FE12C18C39C006F9834 /* GameGuessr.entitlements */,
 				6B9636632C15D35300A918C6 /* View */,
 				6B9636602C15D1F800A918C6 /* Extension */,
 				6B9636532C15CB5C00A918C6 /* Helper */,
@@ -246,6 +251,7 @@
 				6BD3D70F2C0E2A6E00E33B03 /* AsyncImage.swift in Sources */,
 				6B72CA2F2C10966000F1C0A9 /* Game.swift in Sources */,
 				6BD3D70B2C0CC95600E33B03 /* DraggableRectangleView.swift in Sources */,
+				6B4E2FE32C18C3BC006F9834 /* GameCenterManager.swift in Sources */,
 				6B9636652C15D36B00A918C6 /* OnboardingPage.swift in Sources */,
 				6B72CA382C14F6E000F1C0A9 /* OnboardingView.swift in Sources */,
 				6BD3D6FB2C0CC60800E33B03 /* GameGuessrApp.swift in Sources */,
@@ -395,6 +401,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GameGuessr/GameGuessr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GameGuessr/Preview Content\"";
@@ -411,7 +418,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bkoc.GameGuessr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -428,6 +435,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GameGuessr/GameGuessr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"GameGuessr/Preview Content\"";
@@ -444,7 +452,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bkoc.GameGuessr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
