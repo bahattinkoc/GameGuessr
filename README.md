@@ -23,7 +23,7 @@ Drag the picture to the right edge to find out which game it represents. In case
 
 ## Contributing to GameGuessr
 
-We :heart: your feedback! If you notice any bug or want a new feature, just [open an Issue](https://github.com/elpassion/DropColour-iOS/issues/new)!
+We :heart: your feedback! If you notice any bug or want a new feature, just [open an Issue](https://github.com/bahattinkoc/GameGuessr/issues/new)!
 
 We also encourage you to make changes to the code - refactor it, add a feature, fix a typo. Even the smallest change counts!
 
